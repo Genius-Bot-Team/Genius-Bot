@@ -6,6 +6,7 @@ on:
       - ".github/**"
       - "geniusbot/**"
       - "*.py"
+  pull_request:
 
 jobs:
 
