@@ -1,0 +1,24 @@
+name: Assemble a Dev Source Compressed File
+
+on: workflow_call
+
+jobs:
+  assemble:
+    runs-on: ubuntu-latest
+    name: Assemble a dev source compressed file
+
+    steps:
+      - uses: actions/checkout@v3.1.0
+      - name: Create Dev Build
+        run: |
+          mkdir Genius-Bot
+          mv * Genius-Bot || true
+          cd Genius-Bot
+          rm -rf .git tests
+          rm -f .gitignore setup.py MANIFEST.in *.md
+          cd ..
+          zip -r Genius-Bot-Dev.zip ./Genius-Bot
+      - uses: actions/upload-artifact@v3.1.1
+        with:
+          name: Genius-Bot dev source for ${{ github.sha }}
+          path: Genius-Bot-Dev.zip
