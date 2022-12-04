@@ -1,7 +1,10 @@
+import os
 import sys
+import traceback
 from argparse import ArgumentParser
 
 from ..constants import core_constant
+from ..genius_bot import GeniusBot
 
 
 def environment_check():
@@ -46,11 +49,26 @@ def run_gbot():
     run the Genius-Bot
     """
     print('{} {} is starting up'.format(core_constant.NAME, core_constant.VERSION))
+    try:
+        bot = GeniusBot()
+    except Exception as e:
+        traceback.print_stack()
+        print('Fail to initialize {}'.format(core_constant.NAME_SHORT))
+        raise e
+    else:
+        if bot.is_initialized():
+            bot.start_bot()
+        else:
+            # If it's not initialized, config file is missing
+            # Just don't do anything to let the user check the files
+            pass
 
 
 def initialize_environment():
-    ...
+    GeniusBot(initialize_environment=True)
+    print(f'Initialized environment for {core_constant.NAME} in {os.getcwd()}')
 
 
 def generate_default_stuffs():
-    ...
+    GeniusBot(generate_default_only=True)
+    print(f'Generated default configuration and permission files in {os.getcwd()}')
