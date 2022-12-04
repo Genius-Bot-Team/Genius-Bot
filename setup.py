@@ -17,7 +17,7 @@ NAME = "Genius-Bot"
 VERSION = "0.1.0"
 DESCRIPTION = 'A kook bot framework base on khl.py'
 URL = 'https://github.com/Genius-Bot-Team/Genius-Bot'
-AUTHOR = 'DancingSnow'
+AUTHOR = 'DancingSnow / Quinlivanner'
 
 CLASSIFIERS = [
     # https://pypi.org/classifiers/
