@@ -1,0 +1,42 @@
+name: CI for Genius-Bot
+
+on:
+  push:
+    paths:
+      - ".github/**"
+      - "geniusbot/**"
+      - "*.py"
+
+jobs:
+
+  assemble:
+    uses: ./.github/workflows/assemble.yml
+
+  build:
+    runs-on: ubuntu-latest
+    name: Build with python ${{ matrix.python-version }}
+
+    steps:
+      - uses: actions/checkout@v3.1.0
+      - name: Setup python
+        uses: actions/setup-python@v4.3.0
+        with:
+          python-version: 3.8
+
+      - uses: actions/cache@v3.0.11
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install setuptools wheel
+      - name: Create distribution
+        run: |
+          python setup.py sdist bdist_wheel
+      - uses: actions/upload-artifact@v3.1.1
+        with:
+          name: Genius-Bot package distribution for ${{ github.sha }}
+          path: dist/
