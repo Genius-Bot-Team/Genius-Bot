@@ -1,0 +1,9 @@
+# Configuration file for Genius-Bot
+
+
+# your kook bot token here
+token: ''
+
+# The list of directory path where Genius-Bot will search for plugin to load
+plugin_directories:
+- plugins

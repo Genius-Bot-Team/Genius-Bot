@@ -1,0 +1,2 @@
+recursive-include geniusbot/resources *
+include requirements.txt
