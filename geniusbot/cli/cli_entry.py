@@ -1,6 +1,5 @@
 import os
 import sys
-import traceback
 from argparse import ArgumentParser
 
 from ..constants import core_constant
@@ -52,9 +51,7 @@ def run_gbot():
     try:
         bot = GeniusBot()
     except Exception as e:
-        traceback.print_stack()
-        print('Fail to initialize {}'.format(core_constant.NAME_SHORT))
-        raise e
+        print(f'Fail to initialize {core_constant.NAME} with error: {e}')
     else:
         if bot.is_initialized():
             bot.start_bot()

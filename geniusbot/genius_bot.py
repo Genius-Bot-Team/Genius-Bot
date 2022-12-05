@@ -6,6 +6,8 @@ from khl import Bot
 
 from .bot_state import GeniusBotState
 from .config import Config
+from .constants import core_constant
+from .utils.logger import GeniusBotLogger
 
 
 class GeniusBot(Bot):
@@ -13,7 +15,7 @@ class GeniusBot(Bot):
     def __init__(self, *, initialize_environment: bool = False, generate_default_only: bool = False) -> None:
         self.bot_state = GeniusBotState.INITIALIZING
 
-        self.config = Config.load()
+        # Constructing fields
 
         # --- Input arguments "generate_default_only" processing --- #
         if generate_default_only:
@@ -34,19 +36,35 @@ class GeniusBot(Bot):
                 os.mkdir('config')
             return
 
+        self.logger = GeniusBotLogger()
+        self.config = Config.load(self.logger)
+        self.logger.setLevel(self.config.log_level)
+
         super().__init__(self.config.token)
+
+        self.logger.set_file(core_constant.LOGGING_FILE)
+
+        # INITIALIZE DONE
+        self.bot_state = GeniusBotState.INITIALIZED
 
     def start_bot(self):
         if not self.loop:
             self.loop = asyncio.get_event_loop()
         try:
+            self.bot_state = GeniusBotState.RUNNING
             self.loop.run_until_complete(self.start())
         except KeyboardInterrupt:
-            # do something when bot stopped
-            ...
+            self.bot_state = GeniusBotState.PRE_STOPPED
+            self.stop_bot()
+            self.bot_state = GeniusBotState.STOPPED
+
+    def stop_bot(self):
+        # do something when bot stopped
+
+        # call on_unload for all loaded plugins
+        ...
 
     # state
-
     def bot_in_state(self, state: GeniusBotState) -> bool:
         return self.bot_state.in_state(state)
 
