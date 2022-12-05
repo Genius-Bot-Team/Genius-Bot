@@ -14,11 +14,6 @@ from .utils.logger import GeniusBotLogger
 class GeniusBot(Bot):
 
     def __init__(self, *, initialize_environment: bool = False, generate_default_only: bool = False) -> None:
-        self.bot_state = GeniusBotState.INITIALIZING
-
-        # Constructing fields
-        self.plugin_manager = PluginManager(self)
-
         # --- Input arguments "generate_default_only" processing --- #
         if generate_default_only:
             data = pkgutil.get_data('geniusbot', 'resources/default_config.yml')
@@ -38,13 +33,17 @@ class GeniusBot(Bot):
                 os.mkdir('config')
             return
 
+        self.bot_state = GeniusBotState.INITIALIZING
+
         self.logger = GeniusBotLogger()
         self.config = Config.load(self.logger)
         self.logger.setLevel(self.config.log_level)
+        self.logger.set_file(core_constant.LOGGING_FILE)
+
+        # Constructing fields
+        self.plugin_manager = PluginManager(self)
 
         super().__init__(self.config.token)
-
-        self.logger.set_file(core_constant.LOGGING_FILE)
 
         # INITIALIZE DONE
         self.bot_state = GeniusBotState.INITIALIZED
