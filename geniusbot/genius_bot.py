@@ -4,6 +4,7 @@ import pkgutil
 
 from khl import Bot
 
+from .command.command_manager import CommandManager
 from .genius_bot_state import GeniusBotState
 from .config import Config
 from .constants import core_constant
@@ -42,6 +43,7 @@ class GeniusBot(Bot):
 
         # Constructing fields
         self.plugin_manager = PluginManager(self)
+        self.command_manager = CommandManager(self)
 
         super().__init__(self.config.token)
 
