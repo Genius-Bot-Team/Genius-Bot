@@ -1,5 +1,5 @@
 import os
-
+from geniusbot import core_constant
 from setuptools import setup, find_packages
 
 # === cheatsheet ===
@@ -11,10 +11,8 @@ from setuptools import setup, find_packages
 # python -m twine upload --repository testpypi dist/*
 # python -m twine upload dist/*
 
-# NAME = core_constant.PACKAGE_NAME
-NAME = "Genius-Bot"
-# VERSION = core_constant.VERSION_PYPI
-VERSION = "0.1.0"
+NAME = core_constant.PACKAGE_NAME
+VERSION = core_constant.VERSION_PYPI
 DESCRIPTION = 'A kook bot framework base on khl.py'
 URL = 'https://github.com/Genius-Bot-Team/Genius-Bot'
 AUTHOR = 'DancingSnow / Quinlivanner'

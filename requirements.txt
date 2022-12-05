@@ -1,2 +1,4 @@
 khl.py>=0.3.11
 KaiHeiLaCardBuilder>=1.2.5
+ruamel.yaml~=0.17
+colorlog>=6.7

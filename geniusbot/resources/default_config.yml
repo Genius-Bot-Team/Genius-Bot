@@ -1,0 +1,14 @@
+# Configuration file for Genius-Bot
+
+
+# Your kook bot token here
+token: ''
+
+# The list of directory path where Genius-Bot will search for plugin to load
+plugin_directories:
+- plugins
+
+# Set the logger level
+# Default: 'INFO'
+# Possible values: ALL INFO WARNING ERROR DEBUG
+log_level: INFO
