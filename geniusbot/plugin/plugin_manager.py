@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, List
+from typing import TYPE_CHECKING, List, Dict
 
 if TYPE_CHECKING:
     from ..genius_bot import GeniusBot
@@ -8,6 +8,10 @@ class PluginManager:
     def __init__(self, bot: 'GeniusBot') -> None:
         self.bot = bot
         self.logger = self.bot.logger
+        self.plugin_directories: List[str] = []
+
+        self.plugins: Dict[str, 'Plugin'] = {}  # plugin_id <-> Plugin
+        self.plugin_file_path: Dict[str, str] = {}  # plugin_id <-> plugin path
 
     def get_plugin_amount(self) -> int:
         ...
