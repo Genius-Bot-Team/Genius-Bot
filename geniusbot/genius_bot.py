@@ -4,7 +4,7 @@ import pkgutil
 
 from khl import Bot
 
-from .bot_state import GeniusBotState
+from .genius_bot_state import GeniusBotState
 from .config import Config
 from .constants import core_constant
 from .utils.logger import GeniusBotLogger
