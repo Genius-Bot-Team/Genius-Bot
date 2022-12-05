@@ -7,6 +7,7 @@ from khl import Bot
 from .genius_bot_state import GeniusBotState
 from .config import Config
 from .constants import core_constant
+from .plugin.plugin_manager import PluginManager
 from .utils.logger import GeniusBotLogger
 
 
@@ -16,6 +17,7 @@ class GeniusBot(Bot):
         self.bot_state = GeniusBotState.INITIALIZING
 
         # Constructing fields
+        self.plugin_manager = PluginManager(self)
 
         # --- Input arguments "generate_default_only" processing --- #
         if generate_default_only:
